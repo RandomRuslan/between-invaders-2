@@ -1,4 +1,8 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HostListener, EventEmitter } from '@angular/core';
+import { Output } from '@angular/core';
+
+import { ShootingService } from '../shooting.service';
 
 @Component({
   selector: 'app-player',
@@ -8,7 +12,9 @@ import { Component, OnInit, HostListener } from '@angular/core';
 export class PlayerComponent implements OnInit {
   shipPosition = 50;
 
-  constructor( ) { }
+  constructor(
+    private shootingService: ShootingService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -23,5 +29,13 @@ export class PlayerComponent implements OnInit {
 
   @HostListener('window:keydown.arrowUp') moveUp(): void {
     this.shipPosition = Math.max(this.shipPosition - 2, 2);
+  }
+
+  @HostListener('window:keydown.arrowLeft') leftShow(): void {
+    this.shootingService.shoot({direction: 'left', posY: this.shipPosition, posX: 50});
+  }
+
+  @HostListener('window:keydown.arrowRight') rightShow(): void {
+    this.shootingService.shoot({direction: 'right', posY: this.shipPosition, posX: 50});
   }
 }

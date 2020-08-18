@@ -1,0 +1,8 @@
+.bullet {
+    position: absolute;
+    background-color: blue;
+    width: 5px;
+    height: 5px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+}
