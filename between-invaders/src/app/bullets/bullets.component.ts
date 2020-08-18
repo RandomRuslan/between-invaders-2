@@ -13,9 +13,9 @@ export class BulletsComponent implements OnInit, OnDestroy {
   bullets = [];
 
   subscription;
-  move = interval(100)
+  move = interval(50)
     .subscribe(() => {
-      console.log(this.bullets.length, this.bullets);
+      // console.log(this.bullets.length, this.bullets);
       this.bullets.map(bullet => bullet.posX += bullet.direction === 'right' ? 1 : -1);
       this.bullets = this.bullets.filter(bullet => 0 <= bullet.posX && bullet.posX <= 100);
     });
