@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HostListener, EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
 
 import { ShootingService } from '../shooting.service';
+import { CollisionService } from '../collision.service';
 
 @Component({
   selector: 'app-player',
@@ -11,12 +11,19 @@ import { ShootingService } from '../shooting.service';
 })
 export class PlayerComponent implements OnInit {
   shipPosition = 50;
+  width = 4;
+  height = 4;
+  hWidth = this.width / 2;
+  hHeight = this.height / 2;
 
   constructor(
-    private shootingService: ShootingService
+    private shootingService: ShootingService,
+    private collisionService: CollisionService,
   ) { }
 
   ngOnInit(): void {
+    this.collisionService.setPlayerCoordinatesX(50 - this.hWidth, 50 + this.hWidth);
+    this.collisionService.setPlayerCoordinatesY(this.shipPosition - this.hHeight, this.shipPosition + this.hHeight);
   }
 
   getPosition(): string {
@@ -25,10 +32,12 @@ export class PlayerComponent implements OnInit {
 
   @HostListener('window:keydown.arrowDown') moveDown(): void {
     this.shipPosition = Math.min(this.shipPosition + 2, 98);
+    this.collisionService.setPlayerCoordinatesY(this.shipPosition - this.hHeight, this.shipPosition + this.hHeight);
   }
 
   @HostListener('window:keydown.arrowUp') moveUp(): void {
     this.shipPosition = Math.max(this.shipPosition - 2, 2);
+    this.collisionService.setPlayerCoordinatesY(this.shipPosition - this.hHeight, this.shipPosition + this.hHeight);
   }
 
   @HostListener('window:keydown.arrowLeft') leftShow(): void {

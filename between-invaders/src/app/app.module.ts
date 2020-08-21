@@ -7,6 +7,7 @@ import { BulletsComponent } from './bullets/bullets.component';
 import { BulletComponent } from './bullet/bullet.component';
 import { EnemiesComponent } from './enemies/enemies.component';
 import { EnemyComponent } from './enemy/enemy.component';
+import {CollisionService} from './collision.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { EnemyComponent } from './enemy/enemy.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [CollisionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
